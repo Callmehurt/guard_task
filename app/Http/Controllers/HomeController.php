@@ -29,6 +29,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+
+    public function registerSeller(Request $request){
+        dd('ok');
+    }
+
     public function uploadDoc(Request $request){
         $file = $request->file('document');
         $filename = time().'_'.$file->getClientOriginalName();
@@ -40,5 +45,10 @@ class HomeController extends Controller
         $seller->document = '/uploads/'.$filename;
         $seller->save();
         return redirect()->back()->with('success', 'Doc uploaded successfully');
+    }
+
+    public function logoutSeller(){
+        Auth::guard('web')->logout();
+        return redirect()->route('login');
     }
 }
